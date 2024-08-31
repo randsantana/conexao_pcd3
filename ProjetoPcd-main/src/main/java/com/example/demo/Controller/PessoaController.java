@@ -84,9 +84,9 @@ public class PessoaController {
     public String update(@PathVariable Long id, Model model){
         Optional<Pessoa> pessoa = pessoaRepository.findById(id);
 
-        PessoaForm pessoaForm = new PessoaForm(pessoa.get());
+       // PessoaForm pessoaForm = new PessoaForm(pessoa.get());
 
-        model.addAttribute("pessoaForm", pessoaForm);
+        //model.addAttribute("pessoaForm", pessoaForm);
         model.addAttribute("id", pessoa.get().getId());
 
         return "/pessoa/update";
@@ -117,9 +117,9 @@ public class PessoaController {
     public String visualizar(@PathVariable Long id, Model model){
         Optional<Pessoa> pessoa = pessoaRepository.findById(id);
 
-        PessoaForm pessoaForm = new PessoaForm(pessoa.get());
+        //PessoaForm pessoaForm = new PessoaForm(pessoa.get());
 
-        model.addAttribute("pessoaForm", pessoaForm);
+      //  model.addAttribute("pessoaForm", pessoaForm);
         model.addAttribute("id", pessoa.get().getId());
 
         return "/pessoa/visualizar";
