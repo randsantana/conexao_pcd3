@@ -22,13 +22,6 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-
-
-
-
-
-
 @Controller
 public class PessoaController {
 
@@ -48,9 +41,7 @@ public class PessoaController {
         model.addAttribute("pessoas", pessoas);
 
         return "pessoa/listar";
-
     }
-    
     
     @GetMapping("/pessoa/create")
     public String create(Model model) {
