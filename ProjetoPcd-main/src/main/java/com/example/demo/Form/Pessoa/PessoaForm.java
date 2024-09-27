@@ -3,10 +3,7 @@ package com.example.demo.Form.Pessoa;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.example.demo.Enum.Sexo;
 import com.example.demo.Model.Deficiencia;
-import com.example.demo.Model.Pessoa;
-import com.example.demo.Repository.DeficienciaRepository;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotBlank;
@@ -43,15 +40,10 @@ public class PessoaForm {
     @Size(min = 5, max = 9, message = "Preencha com um CEP valido")
     private String cep;
     
-    
     private String uf;
-
     private String cidade;
     private String bairro;
     private String logradouro;
     private String numero;
-    private String complemento;
-    
-    }
-    
-
+    private String complemento;    
+}

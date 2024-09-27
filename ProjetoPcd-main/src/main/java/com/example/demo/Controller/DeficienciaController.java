@@ -47,6 +47,6 @@ public class DeficienciaController {
 
         redirectAttributes.addFlashAttribute("successMessage", "Salvo com sucesso!");
         deficienciaService.create(deficienciaForm);        
-        return "redirect:/deficiencia";
+        return "redirect:/deficiencia"
     }
 }
