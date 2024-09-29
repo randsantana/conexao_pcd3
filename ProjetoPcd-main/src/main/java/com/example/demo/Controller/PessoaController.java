@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.Form.Pessoa.PessoaForm;
 import com.example.demo.Model.Deficiencia;
@@ -18,10 +21,6 @@ import com.example.demo.Repository.PessoaRepository;
 import com.example.demo.Service.PessoaService;
 
 import jakarta.validation.Valid;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class PessoaController {
 
@@ -124,15 +123,9 @@ public class PessoaController {
             redirectAttributes.addFlashAttribute("successMessage", "Recuperado com sucesso");
         }
 
-        
-
         this.pessoaRepository.save(pessoalModel);
 
-       
-        
         return "redirect:/pessoa";
     }
-    
-    
     
 }
