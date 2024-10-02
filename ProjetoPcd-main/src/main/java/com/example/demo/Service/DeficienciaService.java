@@ -25,8 +25,25 @@ public class DeficienciaService{
         Deficiencia deficiencia = new Deficiencia();
         
         deficiencia.setNome(deficienciaForm.getNome());
+        deficiencia.setCategoria(deficienciaForm.getCategoria());
         this.deficienciaRepository.save(deficiencia);
 
         return deficiencia;
+    }
+    public Deficiencia update(DeficienciaForm deficienciaForm, Long id) {
+        Deficiencia deficiencia = deficienciaRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Deficiência não encontrada"));
+
+        deficiencia.setNome(deficienciaForm.getNome());
+        deficiencia.setCategoria(deficienciaForm.getCategoria());
+        
+        return deficienciaRepository.save(deficiencia);
+    }
+
+    public void delete(Long id) {
+        Deficiencia deficiencia = deficienciaRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Deficiência não encontrada"));
+
+        deficienciaRepository.delete(deficiencia);
     }
 }

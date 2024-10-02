@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.demo.Form.Deficiencia.DeficienciaForm;
 import com.example.demo.Model.Categoria;
 import com.example.demo.Model.Deficiencia;
+import com.example.demo.Model.Pessoa;
 import com.example.demo.Repository.CategoriaRepository;
 import com.example.demo.Repository.DeficienciaRepository;
 import com.example.demo.Service.DeficienciaService;
@@ -71,32 +73,61 @@ public class DeficienciaController {
         return "redirect:/deficiencia";
     }
     @GetMapping("/deficiencia/update/{id}")
-    public String update(@PathVariable Long id, Model model){
-        Optional<Categoria> categoria = categoriaRepository.findById(id); 
-
-        model.addAttribute("id", categoria.get().getId());
-
-        return "/deficiencia/update";
+    public String update(@PathVariable Long id, Model model) {
+        Optional<Deficiencia> deficiencia = deficienciaRepository.findById(id);
+        DeficienciaForm deficienciaForm = new DeficienciaForm(deficiencia.orElseThrow());
+        
+        List<Categoria> listaCategorias = categoriaRepository.findAll();
+        deficienciaForm.setListCategorias(listaCategorias);
+        
+        model.addAttribute("deficienciaForm", deficienciaForm);
+        return "deficiencia/update";
     }
-    @PostMapping("/deficiencia/update/{id}")
-    public String update(@PathVariable Long id, @Valid DeficienciaForm deficiForm, BindingResult bindingResult,  Model model, RedirectAttributes redirectAttributes
-    ){
-        if(bindingResult.hasErrors()){
+@PostMapping("/deficiencia/update/{id}")
+    public String update(@PathVariable Long id, @Valid @ModelAttribute DeficienciaForm deficienciaForm, 
+                         BindingResult bindingResult, Model model, 
+                         RedirectAttributes redirectAttributes) {
+        List<Categoria> listaCategorias = categoriaRepository.findAll();
+        deficienciaForm.setListCategorias(listaCategorias);
+        model.addAttribute("deficienciaForm", deficienciaForm);
+
+        if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "/deficiencia/update";
         }
 
-        redirectAttributes.addFlashAttribute("menssagemSucesso", "Alterado com sucesso!");
-
-        return "redirect:/deficiencia/create";
+       deficienciaService.update(deficienciaForm, id);
+        redirectAttributes.addFlashAttribute("successMessage", "Deficiência atualizada com sucesso!");
+        return "redirect:/deficiencia";
     }
+
     @GetMapping("/deficiencia/visualizar/{id}")
+    public String visualizar(@PathVariable Long id, Model model) {
+        Optional<Deficiencia> deficiencia = deficienciaRepository.findById(id);
+        DeficienciaForm deficienciaForm = new DeficienciaForm(deficiencia.orElseThrow());
+        
+        List<Categoria> listaCategorias = categoriaRepository.findAll();
+        deficienciaForm.setListCategorias(listaCategorias);
+        
+        model.addAttribute("deficienciaForm", deficienciaForm);
+        return "deficiencia/visualizar";
+    }   
+    
+    @GetMapping("/deficiencia/remover/{id}")
+    public String remover(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        Optional<Deficiencia> deficiencia = this.deficienciaRepository.findById(id);
+        Deficiencia deficienciaModel = deficiencia.get();
 
-    public String visualizar(@PathVariable Long id, Model model){
-        Optional<Categoria> categoria = categoriaRepository.findById(id);
+        if (deficienciaModel.isAtivo()) {
+            deficienciaModel.setAtivo(false);
+            redirectAttributes.addFlashAttribute("successMessage", "Excluido com sucesso");
+        }else{
+            deficienciaModel.setAtivo(true);
+            redirectAttributes.addFlashAttribute("successMessage", "Recuperado com sucesso");
+        }
 
-        model.addAttribute("id", categoria.get().getId());
+        this.deficienciaRepository.save(deficienciaModel);
 
-        return "/deficiencia/visualizar";
+        return "redirect:/pessoa";
     }
 }

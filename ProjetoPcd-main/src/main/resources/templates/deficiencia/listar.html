@@ -31,19 +31,19 @@
                         <tr th:each="deficiencia : ${listaDeficiencias}">
                             <td th:text="${deficiencia.id}"></td>
                             <td th:text="${deficiencia.nome}"></td>
-                            <td th:text="${deficiencia.nome}"></td>
+                            <td th:text="${deficiencia.categoria.nome}"></td>
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-light" th:href="@{/deficiencia/update/{id}(id=${deficiencia.id})}"><i class="fa-solid fa-pen-ruler"></i> Alterar</a>
-                                    <a class="btn btn-light" th:href="@{/deficiencia/visualizar/{id}(id=${deficiencia.id})}"><i class="fa-solid fa-magnifying-glass"></i> Visualizar</a><div th:if="${deficiencia.ativo}">
+                                    <a class="btn btn-light" th:href="@{/deficiencia/visualizar/{id}(id=${deficiencia.id})}"><i class="fa-solid fa-magnifying-glass"></i> Visualizar</a>
+                                    <div th:if="${deficiencia.ativo}">
                                         <a class="btn btn-light" th:href="@{/deficiencia/remover/{id}(id=${deficiencia.id})}"><i class="fa-solid fa-trash"></i> Remover</a>
-                                        </div>
-                                        <div th:if="${not deficiencia.ativo}">
-                                            <a class="btn btn-light" th:href="@{/deficiencia/remover/{id}(id=${deficiencia.id})}"><i class="fa-solid fa-reply"></i> Recuperar</a>
-                                        </div>
+                                    </div>
+                                    <div th:if="${not deficiencia.ativo}">
+                                        <a class="btn btn-light" th:href="@{/deficiencia/remover/{id}(id=${deficiencia.id})}"><i class="fa-solid fa-reply"></i> Recuperar</a>
                                     </div>
                                 </div>
-                            </td>                             
+                            </td>                            
                         </tr>                           
                     </tbody>
                 </table>

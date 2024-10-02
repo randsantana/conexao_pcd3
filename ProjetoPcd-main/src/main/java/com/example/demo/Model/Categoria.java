@@ -1,5 +1,9 @@
 package com.example.demo.Model;
 
+import java.util.Optional;
+
+import org.hibernate.annotations.ColumnDefault;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +26,10 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name = "ativo", nullable = false)
+    @ColumnDefault("true")
+    private boolean ativo = true;
 
     @Column(nullable = false, length = 100)
     private String nome;
