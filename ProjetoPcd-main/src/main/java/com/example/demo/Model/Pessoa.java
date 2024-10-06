@@ -6,12 +6,22 @@ import org.hibernate.annotations.ColumnDefault;
 
 import com.example.demo.Enum.Sexo;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -33,7 +43,7 @@ public class Pessoa {
     
     @Column(name = "nome", nullable = false, length = 100, unique = false)
     private String nome;
-    
+
     @Column(name = "sexo", nullable = false)
     @ColumnDefault("2")
     @Enumerated(EnumType.ORDINAL)
@@ -47,14 +57,11 @@ public class Pessoa {
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
-
-    public Pessoa(String nome, LocalDate dataNascimento, Sexo sexo){
-        this.nome = nome;
+    public Pessoa(LocalDate dataNascimento, Deficiencia deficiencia, Endereco endereco, Long id, String nome) {
         this.dataNascimento = dataNascimento;
-        this.sexo = sexo;
-    
+        this.deficiencia = deficiencia;
+        this.endereco = endereco;
+        this.id = id;
+        this.nome = nome;
     }
-
 }
-
-    

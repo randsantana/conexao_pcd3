@@ -15,9 +15,9 @@
                         <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                     </div>
                     <div class="mb-3 col-md-3">
-                        <label for="nascimento" class="form-label">Data de nascimento:</label>
-                        <input disabled type="date" id="nascimento" th:field="*{nascimento}" class="form-control">
-                        <div th:if="${errors != null && #fields.hasErrors('nascimento')}" th:errors="*{nascimento}"></div>
+                        <label for="dataNascimento" class="form-label">Data de nascimento:</label>
+                        <input disabled type="date" id="dataNascimento" th:field="*{dataNascimento}" class="form-control">
+                        <div th:if="${errors != null && #fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></div>
                     </div>
                     <div class="mb-3 col-md-3">
                         <label for="sexo" class="form-label">Sexo:</label>

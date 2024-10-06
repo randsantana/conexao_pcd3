@@ -82,9 +82,8 @@ public class PessoaService {
         endereco.setCep(pessoaForm.getCep());
         endereco.setLogradouro(pessoaForm.getLogradouro());
 
-        Cidade cidade = this.cidadeRepository.findByNome(pessoaForm.getCidade());
-        Bairro bairro = this.bairroRepository
-        .findBairroByNomeAndCidade(pessoaForm.getBairro(), cidade.getId());
+        Cidade cidade =this.cidadeRepository.findByNome(pessoaForm.getCidade());
+        Bairro bairro = this.bairroRepository.findBairroByNomeAndCidade(pessoaForm.getBairro(),cidade.getId());
 
         endereco.setBairro(bairro);
         endereco.setNumero(pessoaForm.getNumero());
@@ -98,5 +97,4 @@ public class PessoaService {
 
         return pessoa;
     }
-    
 }
