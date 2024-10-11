@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.Form.Deficiencia.DeficienciaForm;
@@ -21,6 +22,9 @@ import com.example.demo.Repository.CategoriaRepository;
 import com.example.demo.Repository.DeficienciaRepository;
 import com.example.demo.Service.DeficienciaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 @Controller
@@ -30,8 +34,14 @@ public class DeficienciaController {
     @Autowired
     private CategoriaRepository  categoriaRepository;
     @Autowired
-    private DeficienciaService deficienciaService;
 
+    private DeficienciaService deficienciaService;
+    @Operation(description = "Buscar todas deficiências.")
+    @ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "tudo certo"),
+    @ApiResponse(responseCode = "400", description = "Não encontrado defiências"),
+    @ApiResponse(responseCode = "404", description = "Página não encontrada")
+    })
     @GetMapping("/deficiencia")
     public String index(Model model) {
 
@@ -41,7 +51,12 @@ public class DeficienciaController {
         
         return "deficiencia/listar";
     }
-
+    @Operation(description = "Buscar deficiência que ja foi criada.")
+    @ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "tudo certo"),
+    @ApiResponse(responseCode = "400", description = "Não encontrado defiências"),
+    @ApiResponse(responseCode = "404", description = "Página não encontrada")
+    })
     @GetMapping("/deficiencia/create")
     public String create(Model model) {
         DeficienciaForm deficienciaForm = new DeficienciaForm();
