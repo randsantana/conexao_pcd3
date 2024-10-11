@@ -28,20 +28,14 @@ public class Cidade {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome", nullable = false, length = 100)
+    @Column(name = "nome", nullable = true, length = 200)
     private String nome;
 
     @Column(name = "ativo", nullable = false)
     @ColumnDefault("true")
-    private boolean ativo;
+    private boolean ativo = true;
 
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;
-
-    
 }
-
-
-
-

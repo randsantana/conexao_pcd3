@@ -34,12 +34,4 @@ public class Estado {
     @Column(name = "ativo", nullable = false)
     @ColumnDefault("true")
     private boolean ativo;
-
-    public Estado(String nome){
-        this.nome = nome;
-
-    
-    }
-
 }
-
